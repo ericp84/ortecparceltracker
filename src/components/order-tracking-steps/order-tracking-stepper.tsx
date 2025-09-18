@@ -1,41 +1,79 @@
-import { CircleCheck } from "lucide-react";
+"use client";
 
-export default function OrderTrackingStepper() {
+import { Check } from "lucide-react";
+import React from "react";
+import { cn } from "@/lib/utils";
+import OrderParcelsStatus from "./order-parcels-status";
+
+type Step = {
+  title: string;
+};
+
+type StepperProps = {
+  steps: Step[];
+  currentStep: number;
+};
+
+export function OrderTrackingStepper({ steps, currentStep }: StepperProps) {
   return (
-    <div className="lg:col-span-1">
-      <div className="flex flex-col items-center">
-        {/* Étape 1: En attente de traitement */}
-        <div className="flex items-center w-full">
-          <div className="z-10 bg-red-700 rounded-full p-1.5">
-            <CircleCheck className="text-white w-4 h-4" />
-          </div>
-          <div className="flex-1 text-center px-2">
-            <p className="font-medium text-gray-800">
-              En attente de traitement
-            </p>
-          </div>
-        </div>
-        <div className="h-16 w-0.5 bg-red-700 -mt-1" />
+    <div className="flex flex-col justify-between h-full space-y-0">
+      {steps.map((step, index) => {
+        const isCompleted = index < currentStep;
+        const isActive = index === currentStep;
+        const isLast = index === steps.length - 1;
 
-        {/* Étape 2: En cours de préparation */}
-        <div className="flex items-center w-full">
-          <div className="z-10 bg-red-700 rounded-full p-1.5">
-            <CircleCheck className="text-white w-4 h-4" />
-          </div>
-          <div className="flex-1 text-center px-2">
-            <p className="font-medium text-gray-800">En cours de préparation</p>
-          </div>
-        </div>
-        <div className="h-16 w-0.5 bg-gray-300 -mt-1" />
+        return (
+          <div key={index} className="flex items-start relative h-28">
+            {/* Icône + Trait */}
+            <div className="flex flex-col items-center relative h-full">
+              {/* Cercle */}
+              <div
+                className={cn(
+                  "w-12 h-12 rounded-full flex items-center justify-center border-2 z-10",
+                  isCompleted
+                    ? "bg-red-600 border-red-600 text-white"
+                    : isActive
+                    ? "border-red-600 text-red-600 bg-white"
+                    : "border-gray-300 text-gray-400 bg-white"
+                )}
+              >
+                {isCompleted ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <div
+                    className={cn(
+                      "w-2 h-2 rounded-full",
+                      isActive ? "bg-red-600" : ""
+                    )}
+                  />
+                )}
+              </div>
 
-        {/* Étape 3: Expédiée */}
-        <div className="flex items-center w-full">
-          <div className="z-10 bg-white border-2 border-gray-300 rounded-full p-2"></div>
-          <div className="flex-1 text-center px-2">
-            <p className="font-medium text-gray-500">Expédiée</p>
+              {/* Trait vertical */}
+              {!isLast && (
+                <div
+                  className={cn(
+                    "absolute left-1/2 -translate-x-1/2 top-12 w-[10px] h-[calc(100%-1rem)]",
+                    isCompleted ? "bg-red-600" : "bg-gray-300"
+                  )}
+                />
+              )}
+            </div>
+
+            {/* Texte */}
+            <div className="ml-4">
+              <p
+                className={cn(
+                  "font-semibold",
+                  isCompleted || isActive ? "text-black" : "text-gray-400"
+                )}
+              >
+                {step.title}
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 }

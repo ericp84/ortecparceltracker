@@ -19,7 +19,7 @@ const OrderTrackingPage = () => {
         </h2>
         <OrderTrackingSteps />
         {/* Statut du colis */}
-        <OrderParcelsStatus />
+        {/* <OrderParcelsStatus /> */}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export default function OrderAddressesInfos({ isShippingAddress = false }) {
             ? "Adresse de livraison"
             : "Adresse de facturation"}
         </h3>
-        <address className="not-italic text-gray-600">
+        {/* <address className="not-italic text-gray-600">
           {isShippingAddress ? "Bruno VAYSSE" : "Bruno VIVYSE"}
           <br />
           {isShippingAddress ? "OENODEPOT" : ""}
@@ -27,7 +27,27 @@ export default function OrderAddressesInfos({ isShippingAddress = false }) {
           {isShippingAddress ? "0622664841" : "0622664841"}
           <br />
           {isShippingAddress ? "" : "bouchwayseu@cortec.fr"}
-        </address>
+        </address> */}
+        <p>{isShippingAddress ? "Bruno VAYSSE" : "Bruno VIVYSE"}</p>
+        <p>{isShippingAddress ? "OENODEPOT" : ""}</p>
+        <p>
+          {isShippingAddress
+            ? "30 RUE FREDERIC JOLIOT"
+            : "595 Avenue de la Bagatelle"}
+        </p>
+        <p>
+          {isShippingAddress
+            ? "13290 AIX EN PROVENCE"
+            : "13090 AIX EN PROVENCE"}
+        </p>
+        <p>
+          {" "}
+          {isShippingAddress
+            ? "France Métropolitaine (hors Corse)"
+            : "France Métropolitaine (hors Corse)"}
+        </p>
+        <p>{isShippingAddress ? "0622664841" : "0622664841"}</p>
+        <p>{isShippingAddress ? "" : "bouchwayseu@cortec.fr"}</p>
       </div>
     </div>
   );
